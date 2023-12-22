@@ -10,7 +10,7 @@ public class AnalyzeController: ControllerBase
     [HttpPost(Name = "")]
     public ActionResult Analyze(AnalyzeCodeDto dto)
     {
-        SyntaxAnalyze.Analyzer analyzer = new (dto.Code);
+        SyntaxAnalyze.Analyzer analyzer = new (dto.AnalyzeQuery);
         bool valid = analyzer.Parse();
 
         if (!valid)
@@ -22,6 +22,6 @@ public class AnalyzeController: ControllerBase
             return BadRequest(analyzer.Error ?? "Unknown error");
         }
 
-        return Ok("Ok");
+        return Ok("wra");
     }
 }

@@ -203,8 +203,77 @@ public class Analyzer
 
     }
 
-
-
+    public bool ParseSwitch()
+    {
+        if (!ParseKeyWord("switch"))
+        {
+            return false;
+        }
+    
+        if (!ParseChar('('))
+        {
+            StopOnError("Expected '(' after switch");
+            return false;
+        }
+    
+        ParseExpression();
+    
+        if (!ParseChar(')'))
+        {
+            StopOnError("Expected ')' after switch expression");
+            return false;
+        }
+    
+        if (!ParseChar('{'))
+        {
+            StopOnError("Expected '{' after switch");
+            return false;
+        }
+    
+        bool caseFound = false;
+    
+        while (!ParseChar('}'))
+        {
+            if (ParseKeyWord("case"))
+            {
+                ParseExpression();
+    
+                if (!ParseChar(':'))
+                {
+                    StopOnError("Expected ':' after case expression");
+                    return false;
+                }
+    
+                ParseOperators();
+                caseFound = true;
+            }
+            else if (ParseKeyWord("default"))
+            {
+                if (!ParseChar(':'))
+                {
+                    StopOnError("Expected ':' after default");
+                    return false;
+                }
+    
+                ParseOperators();
+                caseFound = true;
+            }
+            else
+            {
+                StopOnError("Expected 'case' or 'default' inside switch");
+                return false;
+            }
+        }
+    
+        if (!caseFound)
+        {
+            StopOnError("Expected at least one 'case' or 'default' inside switch");
+            return false;
+        }
+    
+        return true;
+    }
+    
     public bool ParseOperators()
     {
         bool f;
@@ -217,10 +286,16 @@ public class Analyzer
             {
                 f = ParseIf();
             }
+
             if (!f)
             {
                 f = ParseWhile();
             }
+            if (!f)
+            {
+                f = ParseSwitch();
+            }
+            
             if (!f)
             {
                 f = ParseAssigment();

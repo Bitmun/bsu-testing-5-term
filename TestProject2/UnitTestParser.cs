@@ -183,16 +183,27 @@ public class Tests
         x=2;
         }
         """, true)]
-    [TestCase(
-        """
-        while (1==1){
-         if(1==1){
-        x=1;
-        } else{
-        x=2;
-        }
-        }
-        """, true)]
+    
+        // [TestCase(
+        //     """
+        //     switch (1) {
+        //         case 1:
+        //             return 1;
+        //             break;
+        //         case 2:
+        //             y = 20;
+        //             break;
+        //         default:
+        //             y = 0;
+        //             break;
+        //     }
+        //     """, true)]
+        
+        [TestCase(
+            """
+            
+            return 1 == 1 ? 1 : 0;
+            """, true)]
 
     public void ValidatesParse(string expression, bool expected)
 

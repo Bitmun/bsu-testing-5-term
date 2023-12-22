@@ -2,5 +2,5 @@
 
 public class AnalyzeCodeDto
 {
-    public string Code { get; set; }
+    public string AnalyzeQuery { get; set; }
 }
