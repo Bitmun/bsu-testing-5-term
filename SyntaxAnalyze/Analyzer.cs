@@ -216,7 +216,7 @@ public class Analyzer
             return false;
         }
     
-        ParseNumber();
+        ParseExpression();
     
         if (!ParseChar(')'))
         {
@@ -315,8 +315,7 @@ public class Analyzer
         f = EndCode();
         return f;
     }
-
-
+    
     private bool ParseFunction()
     {
         SkipBlanks();

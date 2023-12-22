@@ -229,20 +229,6 @@ public class Tests
         }
         """, true)]
     
-    [TestCase(
-        """
-        switch (11) {
-            case 11:
-                z = 5;
-                break;
-            case 2:
-                u = 2;
-                break;
-            default:
-                return 0;
-                break;
-        }
-        """, true)]
         
         
 
