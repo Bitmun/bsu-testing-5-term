@@ -216,7 +216,7 @@ public class Analyzer
             return false;
         }
     
-        ParseExpression();
+        ParseNumber();
     
         if (!ParseChar(')'))
         {
@@ -236,7 +236,7 @@ public class Analyzer
         {
             if (ParseKeyWord("case"))
             {
-                ParseExpression();
+                ParseNumber();
     
                 if (!ParseChar(':'))
                 {
@@ -244,19 +244,27 @@ public class Analyzer
                     return false;
                 }
     
-                ParseOperators();
+                if (!ParseReturn() && !ParseAssigment())
+                {
+                    StopOnError("not valid val");
+                }
                 caseFound = true;
+                ParseKeyWord("break;");
             }
             else if (ParseKeyWord("default"))
             {
                 if (!ParseChar(':'))
                 {
-                    StopOnError("Expected ':' after default");
+                    StopOnError("Expected ':' after case expression");
                     return false;
                 }
     
-                ParseOperators();
+                if (!ParseReturn() && !ParseAssigment())
+                {
+                    StopOnError("not valid val");
+                }
                 caseFound = true;
+                ParseKeyWord("break;");
             }
             else
             {

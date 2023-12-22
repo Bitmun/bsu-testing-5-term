@@ -184,26 +184,67 @@ public class Tests
         }
         """, true)]
     
-        // [TestCase(
-        //     """
-        //     switch (1) {
-        //         case 1:
-        //             return 1;
-        //             break;
-        //         case 2:
-        //             y = 20;
-        //             break;
-        //         default:
-        //             y = 0;
-        //             break;
-        //     }
-        //     """, true)]
+    [TestCase(
+        """
+        switch (1) {
+            case 1:
+                y = 1;
+                break;
+            case 2:
+                y = 20;
+                break;
+            default:
+                y = 0;
+                break;
+        }
+        """, true)]
+    
+    [TestCase(
+        """
+        switch (6) {
+            case 1:
+                z = 5;
+                break;
+            case 2:
+                g = 5;
+                break;
+            default:
+                y = 0;
+                break;
+        }
+        """, true)]
+    
+    [TestCase(
+        """
+        switch (16) {
+            case 13:
+                z = 5;
+                break;
+            case 2:
+                return 5;
+                break;
+            default:
+                y = 0;
+                break;
+        }
+        """, true)]
+    
+    [TestCase(
+        """
+        switch (11) {
+            case 11:
+                z = 5;
+                break;
+            case 2:
+                u = 2;
+                break;
+            default:
+                return 0;
+                break;
+        }
+        """, true)]
         
-        [TestCase(
-            """
-            
-            return 1 == 1 ? 1 : 0;
-            """, true)]
+        
 
     public void ValidatesParse(string expression, bool expected)
 
